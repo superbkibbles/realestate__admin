@@ -41,7 +41,6 @@ const styles = {
 const validationSchema = Yup.object().shape({
     name: Yup.string().required(),
     address: Yup.string().required(),
-    email: Yup.string().email().required(),
     phone_number: Yup.string().required(),
     whatsapp_number: Yup.string().required(),
     viber_number: Yup.string().required(),
