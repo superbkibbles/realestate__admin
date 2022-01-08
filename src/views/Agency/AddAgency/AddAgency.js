@@ -47,10 +47,10 @@ const validationSchema = Yup.object().shape({
     viber_number: Yup.string().required(),
     city: Yup.string().required(),
     country: Yup.string().required(),
-    gps: Yup.object().shape({
-        long: Yup.string().required(),
-        lat: Yup.string().required(),
-    }),
+    // gps: Yup.object().shape({
+    //     long: Yup.string().required(),
+    //     lat: Yup.string().required(),
+    // }),
 });
 
 

@@ -60,7 +60,7 @@ const validationSchema = Yup.object().shape({
     hall: Yup.number().required(),
     balcony: Yup.number().required(),
     kitchen: Yup.number().required(),
-    property_kind: Yup.string().required(),
+    // property_kind: Yup.string().required(),
     space: Yup.number().required(),
     area: Yup.number().required(),
     gps: Yup.object().shape({
@@ -68,7 +68,7 @@ const validationSchema = Yup.object().shape({
         lat: Yup.string().required(),
     }),
     location: Yup.string().required(),
-    building_size: Yup.number().required(),
+    // building_size: Yup.number().required(),
     property_no: Yup.string().required(),
     // start from here
 
