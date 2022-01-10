@@ -39,13 +39,13 @@ const styles = {
 };
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string().required(),
-    address: Yup.string().required(),
-    phone_number: Yup.string().required(),
-    whatsapp_number: Yup.string().required(),
-    viber_number: Yup.string().required(),
-    city: Yup.string().required(),
-    country: Yup.string().required(),
+    // name: Yup.string().required(),
+    // address: Yup.string().required(),
+    // phone_number: Yup.string().required(),
+    // whatsapp_number: Yup.string().required(),
+    // viber_number: Yup.string().required(),
+    // city: Yup.string().required(),
+    // country: Yup.string().required(),
     // gps: Yup.object().shape({
     //     long: Yup.string().required(),
     //     lat: Yup.string().required(),
