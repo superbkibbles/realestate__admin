@@ -18,6 +18,8 @@ import agencyApi from '../../../api/agency/agency';
 import {Delete} from "@material-ui/icons";
 import Image from "material-ui-image";
 import agency from "../../../api/agency/agency";
+import {Checkbox} from "@material-ui/core";
+
 
 const styles = {
     cardCategoryWhite: {
@@ -309,6 +311,17 @@ const EditAgency = ({match, history}) => {
                                                     formControlProps={{
                                                         fullWidth: true,
                                                     }}
+                                                />
+                                            </GridItem>
+                                            <GridItem xs={12} sm={12} md={4}>
+                                                <label>Is Promoted?</label>
+                                                <Checkbox
+                                                    onChange={handleChange}
+                                                    value={values.promoted}
+                                                    checked={values.promoted}
+                                                    onBlur={handleBlur}
+                                                    name='promoted'
+                                                    title={'Is Promoted?'}
                                                 />
                                             </GridItem>
                                         </GridContainer>
