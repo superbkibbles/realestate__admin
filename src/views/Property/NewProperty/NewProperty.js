@@ -41,7 +41,7 @@ const styles = {
     },
 };
 
-const validationSchema = Yup.object().shape({
+// const validationSchema = Yup.object().shape({
     // description: Yup.string().required(),
     // title: Yup.string().required(),
     // floor_number: Yup.number().required(),
@@ -74,8 +74,42 @@ const validationSchema = Yup.object().shape({
     //     name: Yup.string().required()
     // }),
     // for_rent: Yup.boolean(),
-});
+// });
 
+const validationSchema = Yup.object().shape({
+    description: Yup.string(),
+    title: Yup.string(),
+    floor_number: Yup.number(),
+    building_number: Yup.string(),
+    direction_face: Yup.string(),
+    built_year: Yup.string().matches(/^\d+$/, 'The field should have digits only').min(4).max(4),
+    city: Yup.string(),
+    country: Yup.string(),
+    property_type: Yup.string(),
+    price: Yup.number(),
+    currency: Yup.string(),
+    rooms: Yup.number(),
+    bathrooms: Yup.number(),
+    bedrooms: Yup.number(),
+    living_rooms: Yup.number(),
+    hall: Yup.number(),
+    balcony: Yup.number(),
+    kitchen: Yup.number(),
+    property_kind: Yup.string(),
+    space: Yup.number(),
+    area: Yup.number(),
+    // gps: Yup.object().shape({
+    //     long: Yup.string().required(),
+    //     lat: Yup.string().required(),
+    // }),
+    location: Yup.string(),
+    building_size: Yup.number(),
+    property_no: Yup.string(),
+    // near_schools: Yup.object().shape({
+    //     name: Yup.string().required()
+    // }),
+    for_rent: Yup.boolean(),
+});
 
 const useStyles = makeStyles(styles);
 
