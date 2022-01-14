@@ -200,7 +200,7 @@ const NewProperty = ({history}) => {
                                 space: 0,
                                 area: 0,
                                 location: '',
-                                building_size: '',
+                                building_size: 0,
                                 gps: {
                                     long: '',
                                     lat: '',
