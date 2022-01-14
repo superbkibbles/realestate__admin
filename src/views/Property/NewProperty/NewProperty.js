@@ -189,18 +189,18 @@ const NewProperty = ({history}) => {
                                 property_type: '',
                                 price: 0,
                                 currency: '$',
-                                rooms: 0,
+                                // rooms: 0,
                                 bedrooms: 0,
                                 bathrooms: 0,
                                 living_rooms: 0,
                                 hall: 0,
                                 balcony: 0,
                                 kitchen: 0,
-                                property_kind: '',
+                                // property_kind: '',
                                 space: 0,
                                 area: 0,
                                 location: '',
-                                building_size: 0,
+                                // building_size: 0,
                                 gps: {
                                     long: '',
                                     lat: '',
@@ -464,24 +464,24 @@ const NewProperty = ({history}) => {
                                                 />
                                             </GridItem>
 
-                                            <GridItem xs={12} sm={12} md={4}>
-                                                <CustomInput
-                                                    error={errors.rooms && touched.rooms}
-                                                    success={touched.rooms && !errors.rooms}
-                                                    labelText="Rooms"
-                                                    id="rooms"
-                                                    inputProps={{
-                                                        onChange: handleChange,
-                                                        name: 'rooms',
-                                                        onBlur: handleBlur,
-                                                        value: values.rooms,
-                                                        type: 'number',
-                                                    }}
-                                                    formControlProps={{
-                                                        fullWidth: true,
-                                                    }}
-                                                />
-                                            </GridItem>
+                                            {/*<GridItem xs={12} sm={12} md={4}>*/}
+                                            {/*    <CustomInput*/}
+                                            {/*        error={errors.rooms && touched.rooms}*/}
+                                            {/*        success={touched.rooms && !errors.rooms}*/}
+                                            {/*        labelText="Rooms"*/}
+                                            {/*        id="rooms"*/}
+                                            {/*        inputProps={{*/}
+                                            {/*            onChange: handleChange,*/}
+                                            {/*            name: 'rooms',*/}
+                                            {/*            onBlur: handleBlur,*/}
+                                            {/*            value: values.rooms,*/}
+                                            {/*            type: 'number',*/}
+                                            {/*        }}*/}
+                                            {/*        formControlProps={{*/}
+                                            {/*            fullWidth: true,*/}
+                                            {/*        }}*/}
+                                            {/*    />*/}
+                                            {/*</GridItem>*/}
 
                                             <GridItem xs={12} sm={12} md={4}>
                                                 <CustomInput
@@ -594,23 +594,23 @@ const NewProperty = ({history}) => {
                                                 />
                                             </GridItem>
 
-                                            <GridItem xs={12} sm={12} md={4}>
-                                                <CustomInput
-                                                    error={errors.property_kind && touched.property_kind}
-                                                    success={touched.property_kind && !errors.property_kind}
-                                                    labelText="Property Kind"
-                                                    id="property_kind"
-                                                    inputProps={{
-                                                        onChange: handleChange,
-                                                        name: 'property_kind',
-                                                        onBlur: handleBlur,
-                                                        value: values.property_kind,
-                                                    }}
-                                                    formControlProps={{
-                                                        fullWidth: true,
-                                                    }}
-                                                />
-                                            </GridItem>
+                                            {/*<GridItem xs={12} sm={12} md={4}>*/}
+                                            {/*    <CustomInput*/}
+                                            {/*        error={errors.property_kind && touched.property_kind}*/}
+                                            {/*        success={touched.property_kind && !errors.property_kind}*/}
+                                            {/*        labelText="Property Kind"*/}
+                                            {/*        id="property_kind"*/}
+                                            {/*        inputProps={{*/}
+                                            {/*            onChange: handleChange,*/}
+                                            {/*            name: 'property_kind',*/}
+                                            {/*            onBlur: handleBlur,*/}
+                                            {/*            value: values.property_kind,*/}
+                                            {/*        }}*/}
+                                            {/*        formControlProps={{*/}
+                                            {/*            fullWidth: true,*/}
+                                            {/*        }}*/}
+                                            {/*    />*/}
+                                            {/*</GridItem>*/}
 
                                             <GridItem xs={12} sm={12} md={4}>
                                                 <CustomInput
@@ -631,24 +631,25 @@ const NewProperty = ({history}) => {
                                                 />
                                             </GridItem>
 
-                                            <GridItem xs={12} sm={12} md={4}>
-                                                <CustomInput
-                                                    error={errors.building_size && touched.building_size}
-                                                    success={touched.building_size && !errors.building_size}
-                                                    labelText="Building Size"
-                                                    id="building_size"
-                                                    inputProps={{
-                                                        onChange: handleChange,
-                                                        name: 'building_size',
-                                                        onBlur: handleBlur,
-                                                        value: values.building_size,
-                                                        type: 'number',
-                                                    }}
-                                                    formControlProps={{
-                                                        fullWidth: true,
-                                                    }}
-                                                />
-                                            </GridItem>
+                                            {/*<GridItem xs={12} sm={12} md={4}>*/}
+                                            {/*    <CustomInput*/}
+                                            {/*        error={errors.building_size && touched.building_size}*/}
+                                            {/*        success={touched.building_size && !errors.building_size}*/}
+                                            {/*        labelText="Building Size"*/}
+                                            {/*        id="building_size"*/}
+                                            {/*        inputProps={{*/}
+                                            {/*            onChange: handleChange,*/}
+                                            {/*            name: 'building_size',*/}
+                                            {/*            onBlur: handleBlur,*/}
+                                            {/*            value: values.building_size,*/}
+                                            {/*            type: 'number',*/}
+                                            {/*        }}*/}
+                                            {/*        formControlProps={{*/}
+                                            {/*            fullWidth: true,*/}
+                                            {/*        }}*/}
+                                            {/*    />*/}
+                                            {/*</GridItem>*/}
+
                                             <GridItem xs={12} sm={12} md={4}>
                                                 <CustomInput
                                                     error={errors.area && touched.area}
