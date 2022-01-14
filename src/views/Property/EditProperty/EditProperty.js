@@ -171,6 +171,8 @@ const NewProperty = ({history, match}) => {
         }
     }
 
+    console.log(property)
+
     if (!property.id) return <p>loading</p>
     return (
         <div>
@@ -821,13 +823,11 @@ const NewProperty = ({history, match}) => {
                                                 <Container>
                                                     <h3>Main Property Photo</h3>
                                                 </Container>
-                                                {
-                                                    property.property_pic &&
                                                     <GridItem xs={12} sm={12} md={4}>
                                                         {
                                                             property.property_pic && !mainPic ?
                                                                 <Image src={property.property_pic}/> :
-                                                                <div style={{position: 'relative'}}>
+                                                                mainPic ? <div style={{position: 'relative'}}>
                                                                     <Delete onClick={() => {
                                                                         setMainPic(null)
                                                                     }} style={{
@@ -836,8 +836,9 @@ const NewProperty = ({history, match}) => {
                                                                         right: 10,
                                                                         cursor: 'pointer'
                                                                     }} color={'error'}/>
-                                                                    <Image src={URL.createObjectURL(mainPic)}/>
+                                                                     <Image src={URL.createObjectURL(mainPic)}/>
                                                                 </div>
+                                                                        : null
                                                         }
                                                         <input
                                                             style={{display: 'none'}}
@@ -854,11 +855,10 @@ const NewProperty = ({history, match}) => {
                                                         />
                                                         <label htmlFor="main_pic">
                                                             <Button variant="raised" component="span" color={'success'}>
-                                                                {property.property_pic ? "Change" : 'upload'}
+                                                                {property.property_pic ? "Change Main Pic" : 'upload Main pic'}
                                                             </Button>
                                                         </label>
                                                     </GridItem>
-                                                }
                                             </GridContainer>
                                             <GridContainer>
                                                 <Container>
