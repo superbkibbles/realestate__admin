@@ -144,7 +144,7 @@ const NewProperty = ({history}) => {
         if (!ok) {
             return console.log(data)
         }
-        uploadMainPic(data.id)
+        await uploadMainPic(data.id)
         uploadIcon(data.id).then(() => {
             history.goBack();
         });

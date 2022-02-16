@@ -5,6 +5,7 @@ import {getToken, removeUserToken} from "../../auth/storage";
 
 const apiClient = create({
     baseURL: 'http://185.208.206.73:3030/api/property'
+    //185.208.206.73:3030
 });
 
 // apiClient.addAsyncRequestTransform(async (req) => {

@@ -131,6 +131,7 @@ const NewProperty = ({history, match}) => {
     }
 
     const uploadIcon = async (propertyID) => {
+        console.log(propertyID)
         if (iconObj.length > 0) {
             const {data, ok} = await propertyApi.uploadMedia(propertyID, iconObj);
             if (!ok) return console.log('Error', data)
