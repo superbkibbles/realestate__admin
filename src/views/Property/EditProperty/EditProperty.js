@@ -118,7 +118,7 @@ const NewProperty = ({history, match}) => {
 
         const {data, ok} = await propertyApi.updateProperty(values.id, fields)
         if (!ok) return console.log(data);
-        uploadMainPic()
+        await uploadMainPic()
         uploadIcon(property.id).then(() => {
             history.goBack();
         })
