@@ -4,7 +4,7 @@ import settings from "../../config/settings";
 import {getToken, removeUserToken} from "../../auth/storage";
 
 const apiClient = create({
-    baseURL: 'http://185.208.206.73:3030/api/property'
+    baseURL: 'http://5.188.36.230:3030/api/property'
     //185.208.206.73:3030
 });
 
