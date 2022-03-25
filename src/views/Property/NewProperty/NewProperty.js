@@ -146,6 +146,7 @@ const NewProperty = ({ history }) => {
     setLoading(true);
     const { data, ok } = await propertyApi.newProperty(values);
     if (!ok) {
+      setLoading(false);
       return console.log(data);
     }
     await uploadMainPic(data.id);

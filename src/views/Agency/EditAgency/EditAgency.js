@@ -78,7 +78,10 @@ const EditAgency = ({ match, history }) => {
       value: value,
     }));
     const { data, ok } = await agencyApi.updateAgency(agency.id, fields);
-    if (!ok) return console.log(data);
+    if (!ok) {
+      setLoading(false);
+      return console.log(data);
+    }
     if (agency.icon && iconObj) deleteIcon();
     if (iconObj)
       return uploadIcon(data.id).then(() => {

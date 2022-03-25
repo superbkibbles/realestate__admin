@@ -66,6 +66,7 @@ const AddAgency = () => {
     setLoading(true);
     const { data, ok, problem } = await agencyApi.newAgency(values);
     if (!ok) {
+      setLoading(false);
       console.log("Error", problem);
     } else {
       uploadIcon(data.id).then(() => {
