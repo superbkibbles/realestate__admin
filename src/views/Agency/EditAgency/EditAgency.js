@@ -60,6 +60,10 @@ const EditAgency = ({ match, history }) => {
   const [agency, setAgency] = useState({});
   const [icon, setIcon] = useState("");
   const [iconObj, setIconObj] = useState(null);
+
+  const [headerPhoto, setHeaderPhoto] = useState("");
+  const [headerPhotoObj, setHeaderPhotoObj] = useState(null);
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -72,22 +76,22 @@ const EditAgency = ({ match, history }) => {
     setAgency(data);
   };
   const handleSubmits = async (values, actions) => {
-    setLoading(true);
-    const fields = Object.entries(values).map(([key, value]) => ({
-      field: key,
-      value: value,
-    }));
-    const { data, ok } = await agencyApi.updateAgency(agency.id, fields);
-    if (!ok) {
-      setLoading(false);
-      return console.log(data);
-    }
-    if (agency.icon && iconObj) deleteIcon();
-    if (iconObj)
-      return uploadIcon(data.id).then(() => {
+    // setLoading(true);
+    // const fields = Object.entries(values).map(([key, value]) => ({
+    //   field: key,
+    //   value: value,
+    // }));
+    // const { data, ok } = await agencyApi.updateAgency(agency.id, fields);
+    // if (!ok) {
+    //   setLoading(false);
+    //   return console.log(data);
+    // }
+    // if (agency.icon && iconObj) deleteIcon();
+    if (iconObj || headerPhotoObj) return uploadIcon().then(() => {
+        setLoading(false);
         history.goBack();
       });
-    history.goBack();
+    // history.goBack();
     setLoading(false);
   };
 
@@ -96,11 +100,11 @@ const EditAgency = ({ match, history }) => {
     if (!ok) return console.log(data);
   };
 
-  const uploadIcon = async (agencyID) => {
-    console.log(agencyID);
+  const uploadIcon = async () => {
     const { data, ok, problem } = await agencyApi.uploadImage(
       iconObj,
-      agencyID
+      match.params.agencyId, 
+      headerPhotoObj
     );
     if (!ok) console.log("Error", problem);
     else {
@@ -239,6 +243,21 @@ const EditAgency = ({ match, history }) => {
                             name: "viber_number",
                             onBlur: handleBlur,
                             value: values.viber_number,
+                          }}
+                          formControlProps={{
+                            fullWidth: true,
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <CustomInput
+                          labelText="Background Color"
+                          id="background-color"
+                          inputProps={{
+                            onChange: handleChange,
+                            name: "background_color",
+                            onBlur: handleBlur,
+                            value: values.background_color,
                           }}
                           formControlProps={{
                             fullWidth: true,
@@ -397,17 +416,62 @@ const EditAgency = ({ match, history }) => {
                         <GridItem xs={12} sm={12} md={4}>
                           <Image src={agency.icon} />
                         </GridItem>
-                        {/*<div style={{position: 'relative'}}>*/}
-                        {/*    <Delete onClick={() => {*/}
-                        {/*        setIcon('');*/}
-                        {/*        setIconObj(null);*/}
-                        {/*    }} style={{*/}
-                        {/*        position: 'absolute',*/}
-                        {/*        zIndex: 10,*/}
-                        {/*        right: 10,*/}
-                        {/*        cursor: 'pointer'*/}
-                        {/*    }} color={'error'}/>*/}
-                        {/*</div>*/}
+                      </GridContainer>
+                    )}
+
+                    {/* Header photo */}
+
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <input
+                          style={{ display: "none" }}
+                          id="raised-button-header-file"
+                          multiple
+                          type="file"
+                          accept="image/*"
+                          onChange={(event) => {
+                            if (event.target.files && event.target.files[0]) {
+                              let img = event.target.files[0];
+                              setHeaderPhoto(URL.createObjectURL(img));
+                              setHeaderPhotoObj(img);
+                            }
+                          }}
+                        />
+                        <label htmlFor="raised-button-header-file">
+                          <Button variant="raised" component="span">
+                            Change header photo
+                          </Button>
+                        </label>
+                      </GridItem>
+                    </GridContainer>
+                    {headerPhoto && (
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <div style={{ position: "relative" }}>
+                            <Delete
+                              onClick={() => {
+                                setHeaderPhoto("");
+                                setHeaderPhotoObj(null);
+                              }}
+                              style={{
+                                position: "absolute",
+                                zIndex: 10,
+                                right: 10,
+                                cursor: "pointer",
+                              }}
+                              color={"error"}
+                            />
+                            <Image src={headerPhoto} />
+                          </div>
+                        </GridItem>
+                      </GridContainer>
+                    )}
+
+                    {agency.header_photo && !headerPhoto && (
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <Image src={agency.header_photo} />
+                        </GridItem>
                       </GridContainer>
                     )}
                   </CardBody>

@@ -2,9 +2,10 @@ import client from "./client";
 
 const newAgency = (values) => client.post('', values);
 const getAllAgencies = () => client.get('');
-const uploadImage = (icon, agencyID) => {
+const uploadImage = (icon, agencyID, headerPhoto) => {
     const data = new FormData();
-    data.append('icon', icon, icon.name);
+    if (icon) data.append('icon', icon, icon.name)
+    if (headerPhoto) data.append('header_photo', headerPhoto, headerPhoto.name);
     return client.post(`${agencyID}`, data);
 };
 const updateAgency = (agencyID, fields) => client.patch(`${agencyID}`, {fields: fields});

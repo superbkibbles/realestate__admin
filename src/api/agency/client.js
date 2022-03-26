@@ -4,7 +4,7 @@ import settings from "../../config/settings";
 import {getToken, removeUserToken} from "../../auth/storage";
 
 const apiClient = create({
-    baseURL: "http://5.188.36.230:3031/api/agency"
+    baseURL: "http://localhost:3031/api/agency"
 });
 
 // apiClient.addAsyncRequestTransform(async (req) => {

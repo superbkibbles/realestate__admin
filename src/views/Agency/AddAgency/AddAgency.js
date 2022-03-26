@@ -59,6 +59,10 @@ const AddAgency = () => {
   const [loading, setLoading] = useState(false);
   const [icon, setIcon] = useState("");
   const [iconObj, setIconObj] = useState(null);
+
+  const [headerPhoto, setHeaderPhoto] = useState("");
+  const [headerPhotoObj, setHeaderPhotoObj] = useState(null);
+
   const history = useHistory();
   const classes = useStyles();
 
@@ -77,10 +81,10 @@ const AddAgency = () => {
     setLoading(false);
   };
   const uploadIcon = async (agencyID) => {
-    console.log(agencyID);
     const { data, ok, problem } = await agencyApi.uploadImage(
       iconObj,
-      agencyID
+      agencyID,
+      headerPhotoObj
     );
     if (!ok) console.log("Error", problem);
     else {
@@ -229,6 +233,21 @@ const AddAgency = () => {
                           }}
                         />
                       </GridItem>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <CustomInput
+                          labelText="Background Color"
+                          id="background-color"
+                          inputProps={{
+                            onChange: handleChange,
+                            name: "background_color",
+                            onBlur: handleBlur,
+                            value: values.background_color,
+                          }}
+                          formControlProps={{
+                            fullWidth: true,
+                          }}
+                        />
+                      </GridItem>
                     </GridContainer>
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={4}>
@@ -338,7 +357,6 @@ const AddAgency = () => {
                     {icon && (
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={4}>
-                          {/*onChange={handleChange} name={'icon'}*/}
                           <div style={{ position: "relative" }}>
                             <Delete
                               onClick={() => {
@@ -358,6 +376,56 @@ const AddAgency = () => {
                         </GridItem>
                       </GridContainer>
                     )}
+
+                    {/* Header Photo */}
+
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={4}>
+                        <input
+                          style={{ display: "none" }}
+                          id="raised-button-header-file"
+                          multiple
+                          type="file"
+                          accept="image/*"
+                          onChange={(event) => {
+                            if (event.target.files && event.target.files[0]) {
+                              let img = event.target.files[0];
+                              setHeaderPhoto(URL.createObjectURL(img));
+                              setHeaderPhotoObj(img);
+                            }
+                          }}
+                        />
+                        <label htmlFor="raised-button-header-file">
+                          <Button variant="raised" component="span">
+                            Upload Header Photo
+                          </Button>
+                        </label>
+                      </GridItem>
+                    </GridContainer>
+                    {headerPhoto && (
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={4}>
+                          <div style={{ position: "relative" }}>
+                            <Delete
+                              onClick={() => {
+                                setHeaderPhoto("");
+                                setHeaderPhotoObj(null);
+                              }}
+                              style={{
+                                position: "absolute",
+                                zIndex: 10,
+                                right: 10,
+                                cursor: "pointer",
+                              }}
+                              color={"error"}
+                            />
+                            <Image src={headerPhoto} />
+                          </div>
+                        </GridItem>
+                      </GridContainer>
+                    )}
+
+                    {/* *************************** */}
                   </CardBody>
                   <CardFooter>
                     <Button round color="primary" onClick={handleSubmit}>
