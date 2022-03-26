@@ -76,22 +76,23 @@ const EditAgency = ({ match, history }) => {
     setAgency(data);
   };
   const handleSubmits = async (values, actions) => {
-    // setLoading(true);
-    // const fields = Object.entries(values).map(([key, value]) => ({
-    //   field: key,
-    //   value: value,
-    // }));
-    // const { data, ok } = await agencyApi.updateAgency(agency.id, fields);
-    // if (!ok) {
-    //   setLoading(false);
-    //   return console.log(data);
-    // }
+    setLoading(true);
+    const fields = Object.entries(values).map(([key, value]) => ({
+      field: key,
+      value: value,
+    }));
+    const { data, ok } = await agencyApi.updateAgency(agency.id, fields);
+    if (!ok) {
+      setLoading(false);
+      return console.log(data);
+    }
     // if (agency.icon && iconObj) deleteIcon();
-    if (iconObj || headerPhotoObj) return uploadIcon().then(() => {
+    if (iconObj || headerPhotoObj)
+      return uploadIcon(data.id).then(() => {
         setLoading(false);
         history.goBack();
       });
-    // history.goBack();
+    history.goBack();
     setLoading(false);
   };
 
@@ -100,10 +101,11 @@ const EditAgency = ({ match, history }) => {
     if (!ok) return console.log(data);
   };
 
-  const uploadIcon = async () => {
+  const uploadIcon = async (agencyID) => {
+    console.log(agencyID);
     const { data, ok, problem } = await agencyApi.uploadImage(
       iconObj,
-      match.params.agencyId, 
+      agencyID,
       headerPhotoObj
     );
     if (!ok) console.log("Error", problem);
