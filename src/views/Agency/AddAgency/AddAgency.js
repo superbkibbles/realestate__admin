@@ -248,6 +248,21 @@ const AddAgency = () => {
                           }}
                         />
                       </GridItem>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <CustomInput
+                          labelText="Text Color"
+                          id="text-color"
+                          inputProps={{
+                            onChange: handleChange,
+                            name: "color",
+                            onBlur: handleBlur,
+                            value: values.color,
+                          }}
+                          formControlProps={{
+                            fullWidth: true,
+                          }}
+                        />
+                      </GridItem>
                     </GridContainer>
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={4}>

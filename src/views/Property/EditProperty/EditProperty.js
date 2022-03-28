@@ -5,7 +5,7 @@ import * as Yup from "yup";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import { Checkbox } from "@material-ui/core";
+import { Checkbox, Modal } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 import { Autocomplete, Box, Container, TextField } from "@mui/material";
 // core components
@@ -88,14 +88,58 @@ const NewProperty = ({ history, match }) => {
   const [agencies, setAgencies] = useState([]);
   const [complexes, setComplexes] = useState([]);
   const [property, setProperty] = useState({});
+  const [kurdishTranslation, setKurdishTranslation] = useState({});
+  const [arabicTranslation, setArabicTranslation] = useState({});
   const [mainPic, setMainPic] = useState(null);
+
+  const [arabicModal, setArabicModal] = useState(false);
+  const [kurdishModal, setKurdishModal] = useState(false);
+  const [lang, setLang] = useState("");
+
+  const handleArabicTranslation = async (values) => {
+    const { data, ok } = await propertyApi.translate(
+      match.params.propertyID,
+      values,
+      lang
+    );
+    if (!ok) {
+      console.log(data);
+    }
+    if (lang === "ar") {
+      setArabicTranslation(data);
+    }
+    else {
+      setKurdishTranslation(data);
+    }
+    setArabicModal(false);
+    setKurdishModal(false);
+    setLang("");
+  };
 
   const classes = useStyles();
   useEffect(() => {
     getAllAgencies();
     getAllComplexes();
     getProperty();
+    getKurdishTranslation();
+    getArabicTranslation();
   }, []);
+
+  const getKurdishTranslation = async () => {
+    const { data, ok, problem } = await propertyApi.getPropertiesById(
+      match.params.propertyID
+    );
+    if (!ok) return console.log(data, problem);
+    setKurdishTranslation(data);
+  };
+
+  const getArabicTranslation = async () => {
+    const { data, ok, problem } = await propertyApi.getPropertiesById(
+      match.params.propertyID
+    );
+    if (!ok) return console.log(data, problem);
+    setArabicTranslation(data);
+  };
 
   const getProperty = async () => {
     const { data, ok, problem } = await propertyApi.getPropertiesById(
@@ -103,6 +147,20 @@ const NewProperty = ({ history, match }) => {
     );
     if (!ok) return console.log(data, problem);
     setProperty(data);
+  };
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "white",
+    border: "2px solid #000",
+    boxShadow: 24,
+    maxHeight: '80%',
+    overflowY: 'auto',
+    p: 4,
   };
 
   const getAllAgencies = async () => {
@@ -185,11 +243,298 @@ const NewProperty = ({ history, match }) => {
     }
   };
 
-  console.log(property);
-
   if (!property.id || loading) return <p>loading</p>;
   return (
     <div>
+      <Button
+        round
+        color="primary"
+        onClick={() => {
+          setLang("ar");
+          setArabicModal(true);
+        }}
+      >
+        Translate to Arabic
+      </Button>
+      <Button
+        round
+        color="info"
+        onClick={() => {
+          setLang("kur");
+          setKurdishModal(true);
+        }}
+      >
+        Translate to Kurdish
+      </Button>
+
+      <Modal
+        open={arabicModal}
+        onClose={() => setArabicModal(false)}
+        aria-labelledby="modal-Arabic"
+        aria-describedby="modal to set Arabic langugage"
+      >
+        <Box sx={style}>
+          <h2 id="unstyled-modal-title">Arabic</h2>
+          <Formik
+            enableReinitialize
+            initialValues={property}
+            onSubmit={handleArabicTranslation}
+          >
+            {({ handleSubmit, handleChange, handleBlur, values }) => (
+              <form onSubmit={handleArabicTranslation}>
+                <CardBody>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Agency Name"
+                        id="complex-name-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "name",
+                          onBlur: handleBlur,
+                          value: values.name,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Description"
+                        id="description-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "description",
+                          onBlur: handleBlur,
+                          value: values.description,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Title"
+                        id="title-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "title",
+                          onBlur: handleBlur,
+                          value: values.title,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+                    
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Direction Face"
+                        id="direction_face-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "direction_face",
+                          onBlur: handleBlur,
+                          value: values.direction_face,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Property Type"
+                        id="property_type-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "property_type",
+                          onBlur: handleBlur,
+                          value: values.property_type,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Location"
+                        id="location-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "location",
+                          onBlur: handleBlur,
+                          value: values.location,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="City"
+                        id="city-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "city",
+                          onBlur: handleBlur,
+                          value: values.city,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={4}>
+                          <Autocomplete
+                            disablePortal
+                            id="category"
+                            sx={{ width: 300 }}
+                            value={values.category}
+                            getOptionLabel={(option) => option}
+                            renderOption={(props, option) => (
+                              <Box
+                                key={option.id}
+                                component="li"
+                                sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+                                {...props}
+                              >
+                                {option}
+                              </Box>
+                            )}
+                            onChange={(e, v) => setFieldValue("category", v)}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Category" />
+                            )}
+                            options={[
+                              "house",
+                              "villa",
+                              "land",
+                              "farm",
+                              "apartment",
+                            ]}
+                          />
+                        </GridItem>
+                  </GridContainer>
+                </CardBody>
+                <CardFooter>
+                  <Button round color="primary" onClick={handleSubmit}>
+                    Translate
+                  </Button>
+                  <Button
+                    color="transparent"
+                    onClick={() => setArabicModal(false)}
+                  >
+                    cancel
+                  </Button>
+                </CardFooter>
+              </form>
+            )}
+          </Formik>
+        </Box>
+      </Modal>
+
+      {/* Kurdish Translate */}
+      <Modal
+        open={kurdishModal}
+        onClose={() => setKurdishModal(false)}
+        aria-labelledby="modal-Arabic"
+        aria-describedby="modal to set kurdish langugage"
+      >
+        <Box sx={style}>
+          <h2 id="unstyled-modal-title">Kurdish</h2>
+          <Formik
+            enableReinitialize
+            initialValues={property}
+            onSubmit={handleArabicTranslation}
+          >
+            {({ handleSubmit, handleChange, handleBlur, values }) => (
+              <form onSubmit={handleArabicTranslation}>
+                <CardBody>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Agency Name"
+                        id="complex-name-kur"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "name",
+                          onBlur: handleBlur,
+                          value: values.name,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Description"
+                        id="description-kur"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "description",
+                          onBlur: handleBlur,
+                          value: values.description,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        type="text"
+                        labelText="Address"
+                        id="address-ar"
+                        inputProps={{
+                          onChange: handleChange,
+                          name: "address",
+                          onBlur: handleBlur,
+                          value: values.address,
+                        }}
+                        formControlProps={{
+                          fullWidth: true,
+                        }}
+                      />
+                    </GridItem>
+                  </GridContainer>
+                </CardBody>
+                <CardFooter>
+                  <Button round color="primary" onClick={handleSubmit}>
+                    Translate
+                  </Button>
+                  <Button
+                    color="transparent"
+                    onClick={() => setArabicModal(false)}
+                  >
+                    cancel
+                  </Button>
+                </CardFooter>
+              </form>
+            )}
+          </Formik>
+        </Box>
+      </Modal>
+
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
