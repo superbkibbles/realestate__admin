@@ -28,7 +28,34 @@ const uploadMainPic = (propertyID, file) => {
   return client.post(`property_pic/${propertyID}`, fileData);
 };
 
-const translate = (id, values) => client.post(`${id}/translate`, values);
+const translate = (id, values, lang) =>
+  client.post(`${id}/translate`, values, {
+    headers: {
+      local: lang,
+    },
+  });
+
+const getTranslatedArabic = (id) =>
+  client.get(
+    `${id}/translate`,
+    {},
+    {
+      headers: {
+        local: "ar",
+      },
+    }
+  );
+
+const getTranslatedKurdish = (id) =>
+  client.get(
+    `${id}/translate`,
+    {},
+    {
+      headers: {
+        local: "kur",
+      },
+    }
+  );
 
 const requests = {
   getPropertiesById,
@@ -40,6 +67,8 @@ const requests = {
   deleteMedia,
   uploadMainPic,
   translate,
+  getTranslatedArabic,
+  getTranslatedKurdish,
 };
 
 export default requests;
