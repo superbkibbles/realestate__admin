@@ -250,6 +250,21 @@ const AddAgency = () => {
                       </GridItem>
                       <GridItem xs={12} sm={12} md={3}>
                         <CustomInput
+                          labelText="Header Text"
+                          id="header-text"
+                          inputProps={{
+                            onChange: handleChange,
+                            name: "header_text",
+                            onBlur: handleBlur,
+                            value: values.header_text,
+                          }}
+                          formControlProps={{
+                            fullWidth: true,
+                          }}
+                        />
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <CustomInput
                           labelText="Text Color"
                           id="text-color"
                           inputProps={{
